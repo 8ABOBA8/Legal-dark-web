@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dark Web</title>
+
+<style>
+body {
+    margin: 0;
+    background: radial-gradient(circle at center, #050505, #000000);
+    color: white;
+    font-family: 'Courier New', monospace;
+    text-align: center;
+    overflow-x: hidden;
+}
+
+#title {
+    font-size: 70px;
+    font-weight: bold;
+    margin-top: 120px;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 10px #fff; }
+    to { text-shadow: 0 0 30px #aaa; }
+}
+
+.button {
+    margin-top: 20px;
+    padding: 15px 40px;
+    font-size: 18px;
+    cursor: pointer;
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+    border-radius: 30px;
+    transition: 0.3s;
+}
+
+.button:hover {
+    background: white;
+    color: black;
+    transform: scale(1.1);
+}
+
+#content {
+    display: none;
+    margin-top: 80px;
+}
+
+.scroll-text {
+    margin: 500px 0;
+    font-size: 22px;
+    opacity: 0.6;
+}
+
+.end {
+    font-size: 26px;
+    opacity: 1;
+    margin-bottom: 20px; /* 👈 вот нужный отступ */
+}
+
+/* Complaint section */
+#complaintSection {
+    display: none;
+    margin-top: 15px; /* 👈 ещё ближе */
+}
+
+textarea {
+    width: 320px;
+    height: 100px;
+    background: black;
+    color: white;
+    border: 1px solid white;
+    padding: 10px;
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 18px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="title">DARK WEB</div>
+
+<button id="menuBtn" class="button">Menu</button>
+
+<div id="content"></div>
+
+<script>
+const btn = document.getElementById("menuBtn");
+const title = document.getElementById("title");
+const content = document.getElementById("content");
+
+btn.onclick = () => {
+    title.innerText = "Try to scroll as hard as you can";
+    btn.style.display = "none";
+    content.style.display = "block";
+
+    for (let i = 0; i < 300; i++) {
+        if (i % 7 === 0) {
+            let p = document.createElement("div");
+            p.className = "scroll-text";
+            p.innerText = "keep scrolling...";
+            content.appendChild(p);
+        } else {
+            let space = document.createElement("div");
+            space.style.height = "400px";
+            content.appendChild(space);
+        }
+    }
+
+    // Финальный текст
+    let end = document.createElement("div");
+    end.className = "scroll-text end";
+    end.innerText = "Congratulations 🎊 you've been fooled, it is dark web but only background is black same as your mind because what the hell are you looking for on a dark web!?";
+    content.appendChild(end);
+
+    // КНОПКА СРАЗУ ПОД ТЕКСТОМ
+    let complaintBtn = document.createElement("button");
+    complaintBtn.className = "button";
+    complaintBtn.innerText = "Complaint Book";
+    complaintBtn.style.marginTop = "10px"; // 👈 ~0.5см
+    content.appendChild(complaintBtn);
+
+    let section = document.createElement("div");
+    section.id = "complaintSection";
+    section.innerHTML = `
+        <p>Write your complaint:</p>
+        <textarea id="complaintInput"></textarea><br>
+        <button id="submitComplaint" class="button">Publish</button>
+        <div id="result"></div>
+    `;
+    content.appendChild(section);
+
+    complaintBtn.onclick = () => {
+        section.style.display = "block";
+    };
+
+    section.querySelector("#submitComplaint").onclick = () => {
+        let text = section.querySelector("#complaintInput").value;
+        section.querySelector("#result").innerText =
+            'directly deleted message "' + text + '"';
+    };
+};
+</script>
+
+</body>
+</html>
